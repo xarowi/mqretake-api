@@ -1,0 +1,24 @@
+{
+  "name": "mqretake-api",
+  "version": "0.1.0",
+  "description": "Monkey Quest Retake API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xarowi/mqretake-api.git"
+  },
+  "keywords": [],
+  "author": "xarowi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xarowi/mqretake-api/issues"
+  },
+  "homepage": "https://github.com/xarowi/mqretake-api#readme",
+  "dependencies": {
+    "fastify": "^3.28.0",
+    "fastify-formbody": "^5.2.0"
+  }
+}
