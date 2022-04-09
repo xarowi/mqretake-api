@@ -96,6 +96,21 @@ fastify.post("/api/json/dlc/shard", function (request, reply) {
   });
 });
 
+/**
+ * Current game version endpoint
+ *
+ * Needed for launcher and maybe updater.
+ * Temporary here. I will make this in different
+ * thing like website or special service.
+ */
+fastify.get("/Game/dlc/:environment/current.txt", function (request, reply) {
+  const currentVersion = JSON.stringify({
+    game: { version: "120397.524", lastUpdate: "2014-07-30_16-58-28" },
+    launcher: { version: "2.0.105", lastUpdate: "2014-06-20_14-03-39" },
+  });
+  reply.send(currentVersion);
+});
+
 // Listening at port from environment
 fastify.listen(process.env.PORT, "0.0.0.0", function (err) {
   if (err) {
