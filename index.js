@@ -5,25 +5,14 @@
  * specially created for Monkey Quest Retake
  */
 
-const crypto = require("crypto");
-
 const fastify = require("fastify")({ logger: true });
+
+// Basic functions
+// Idea taken from Just Dance Now web client
+const { md5, uuid, getSFSHost } = require("./basicFunc");
 
 // Needed for handling application/x-www-form-urlencoded body
 fastify.register(require("fastify-formbody"));
-
-/**
- * MD5 function
- *
- * Example: md5("The quick brown fox jumps over the lazy dog.")
- *   => "e4d909c290d0fb1ca068ffaddf22cbd0"
- */
-function md5(data) {
-  return crypto
-    .createHash('md5')
-    .update(data)
-    .digest("hex");
-}
 
 /**
  * News endpoint
@@ -33,7 +22,7 @@ function md5(data) {
  */
 fastify.get("/api/json/dlc/news", function (request, reply) {
   reply.code(404);
-  reply.send(``);
+  reply.send(`Launcher finally works!`);
 });
 
 /**
@@ -58,14 +47,14 @@ fastify.post("/api/json/dlc/login", function (request, reply) {
     status: true,
     user: {
       local: {
-        uuid: "d057d6a6-b310-4d4b-87a0-0e29a8fc646f",
+        uuid: uuid(),
         username, // Fun fact: Nicknames of developer is contains a "mdqd_iglbeta"
         createdDate: Math.floor(Date.now()),
       },
       sso: {
         authToken: authorizationToken,
         gender: "male", // Not sure
-        dob: Math.floor(Date.now()),
+        dob: Math.floor(Date.now()), // Not sure
       },
       premium: {
         membership: true,
@@ -84,6 +73,25 @@ fastify.post("/api/json/dlc/login", function (request, reply) {
     additional: {
       region: "RU", // I am russian, lol
       signupExperience: "", // I don't know what is this, but this can be empty string
+    },
+  });
+});
+
+/**
+ * Session generator endpoint
+ *
+ * Needed to start the game. I guess, i need to connect 
+ * this thing to SmartFoxServer extension.
+ */
+fastify.post("/api/json/dlc/shard", function (request, reply) {
+  const { uuid } = request.body;
+  
+  reply.send({
+    status: true,
+    sharder: {
+      // I don't know why they made that keys
+      "unity.login.sid": uuid,
+      "unity.login.host": getSFSHost(),
     },
   });
 });
