@@ -50,7 +50,7 @@ function uuid() {
   // Back hex array to string
   hexString = hexArray.join("");
 
-  // Taking parts from hex string
+  // Taking parts from hex string 
   // for UUID string
   let hexParts = [
     hexString.substring(0, 8),
@@ -72,7 +72,7 @@ function uuid() {
  * Currently, this is just a mock-up.
  */
 function getSFSHost() {
-  return "192.168.1.108"; // This local IP for my home server
+  return "127.0.0.1";
 }
 
 module.exports = { md5, uuid, getSFSHost };
